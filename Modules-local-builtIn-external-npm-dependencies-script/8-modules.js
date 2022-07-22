@@ -3,6 +3,10 @@ const sayHi = require("./5-2nd-modules-utils");
 const data = require("./5-alt-method");
 require("./6-mind-granade");
 
+console.log(names);
+console.log(sayHi);
+console.log(data);
+
 sayHi("Naruto");
 sayHi(names.john);
 sayHi(names.peter);
