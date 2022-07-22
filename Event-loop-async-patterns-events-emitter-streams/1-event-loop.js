@@ -1,3 +1,11 @@
+// Read Event Loop from Nodejs.dev
+
+// In frontend, async javascript can offload the task to the browser. Browser has some APIs like setTimeout(() => {}, 0); or setInterval(() => {}, 2000);
+
+// course-api.com
+
+// NodeJS Event Loop: we can offload some time consuming operations and in the mean time can serve all other user's requests.
+
 // Event loop example
 
 const fs = require("fs");
