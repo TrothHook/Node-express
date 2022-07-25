@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Noto+Sans&family=Poppins&family=Ubuntu&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: royalblue;
+    font-size: 1.5rem;
+}
+
+.container {
+  background: #e0eafc;
+  background: -webkit-linear-gradient(to right, #cfdef3, #e0eafc);
+  background: linear-gradient(to right, #cfdef3, #e0eafc);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.456);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+  font-size: 2rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+  font-weight: 700;
+}
+
+.nav li, .navbar li {
+  list-style: none;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  display: none;
+  color: royalblue;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  .nav {
+    display: none;
+  }
+
+  .btn {
+    display: block;
+  }
+
+  .btn.show {
+    display: none;
+  }
+}
+
+.navbar {
+  background: #e0eafc;
+  background: -webkit-linear-gradient(to right, #cfdef3, #e0eafc);
+  background: linear-gradient(to right, #cfdef3, #e0eafc);
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 60%;
+  font-weight: 700;
+  transform: translateX(100%);
+  line-height: 5;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar.active {
+    transform: translateX(0);
+}
+
+button {
+    background-color: royalblue;
+    color: floralwhite;
+    border: none;
+    padding: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

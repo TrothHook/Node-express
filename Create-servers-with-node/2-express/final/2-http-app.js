@@ -52,3 +52,7 @@ const server = http.createServer((req, res) => {
 server.listen(5005, () => {
     console.log(`Server is listening at port 5005`);
 });
+
+// For every resource, we have to use else if statements like for the webpage to work while using HTTP built in module of Node.js
+
+// So, it is better to use a Node framework --> Express.js
