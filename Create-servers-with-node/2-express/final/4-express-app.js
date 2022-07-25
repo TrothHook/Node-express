@@ -9,7 +9,14 @@ const app = express();
 app.use(express.static("./public"));
 
 app.get("/", (req, res) => {
+
+    // we will not be using res.sendFile for sending back index.html, instead we might be using it to send other things
     res.sendFile(path.resolve(__dirname + "/navbar-app/index.html"));
+
+
+    // The 2 other options we might be using the most is --> 
+    // adding it to the static assets
+    // Server side rendering --> use template engine for that
 });
 
 app.all("*", (req, res) => {
