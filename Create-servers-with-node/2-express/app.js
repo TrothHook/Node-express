@@ -2,12 +2,15 @@ const http = require("http");
 
 const fs = require("fs");
 
+const homePage = fs.readFileSync("./navbar-app/index.html");
+
 const server = http.createServer((req, res) => {
 
     const url = req.url;
+    console.log(url);
     if(url === "/") {
         res.writeHead(200, {"content-type": "text/html"});
-        res.write(`homePage`);
+        res.write(homePage);
         res.end();
     }
     else if(url === "/about") {
