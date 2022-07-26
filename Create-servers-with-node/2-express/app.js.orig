@@ -40,5 +40,6 @@ app.get("/", (req, res) => {
 // We can access this data anywhere in the world. But we need middleware functions
 
 
-app.listen(5005, ()=> {
-console.log("Server is listening on
+app.listen(5005, () => {
+    console.log("Server is listening on port 5005");
+});
