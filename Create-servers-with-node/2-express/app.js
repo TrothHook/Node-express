@@ -16,7 +16,7 @@
 
 //  We need to have the middleware functions first, and only then we can have our route methods
 
-const { application } = require("express");
+// const { application } = require("express");
 const express = require("express");
 const logger = require("./logger");
 
