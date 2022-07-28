@@ -1,38 +1,23 @@
-// Now we have our middleware fucntion, but we have 2 issues with this current set up.
+// Now we will write more middleware 
 
-// First, our app.js is getting somewhat clunky 
+// First we will create an authorize.js file
 
-// It will be nicer, if we have this logger function in a seperate file
-
-// Second, what if we have 50 more routes and we don't want to add this function manually to all of them
-
-// It will be nicer to have a method, that will add our middleware function to any route
-
-// We will create a new file called logger.js and put the middleware in that file. and then module.exports it
-
-// Also we will use app.use to not write logger for every route
-
-// In Express order matters, so we can't put the app.use after say the Home route and expect the middleware to work.
-
-//  We need to have the middleware functions first, and only then we can have our route methods
-
-// const { application } = require("express");
 const express = require("express");
-const logger = require("./logger");
-
 const app = express();
+const logger = require("./logger");
+const authorize = require("./authorize");
 
-// app.use(logger);
+// Middleware will also be executed in order
 
-// We can also add a path in the app.use
+// So, in this case, first logger and then authorize
 
-app.use("/api", logger);
+app.use([logger, authorize]);
 
-// if we use a path say /api, it is going to apply to both /api/products and /api/items
+// Now we will see how we can have the if condition in the middleware function
 
-// Once we apply this path over here, basically it is going to apply to any route after this /api
+//** This is just for demonstration purposes, and this is not how we are going to authorize the users in our express application in practice */  
 
-// api/home/about/products
+// This is a simple example using the query string
 
 app.get("/", (req, res) => {
     res.send(`Home`);
@@ -53,5 +38,3 @@ app.get("/api/items", (req, res) => {
 app.listen(5000, () => {
     console.log(`Server is running at port 5000...`);
 });
-
-
