@@ -30,3 +30,25 @@
     </main>
   </body>
 </html>
+
+<!-- // So, that is the first flavour, when it comes to post request. Where we use the form (this is just the frontend) where we come up with an action
+// Since, the index.html is on the same server , we can simply go with <form action="/login" ... ></form>
+
+// But if my frontend application is seperate from our server then we have to provide a full path where the server is hosted. So, basically a full domain
+
+// And then we have to go with method="POST"
+
+// And then we perform the POST request, we hit our URL, in this case, we hit /login . The next part we handle it on our server. And in order to get that data (whatever we are sent) --> 
+
+<!-- we need to use a middleware --> 
+
+<!-- express.urlencoded({extended: false}) --> 
+
+<!-- this one is built in to express.  -->
+
+<!-- // The moment we do that, in the req.body we are going to have access to our form values -->
+
+<!-- // <label for="name"> enter name </label>
+// <input type="text" name="name" id="name" autocomplete="off" /> -->
+
+<!-- // Here in this case, "name" is the key and form value will be its value -->
