@@ -74,3 +74,39 @@
 // And as far as datatype, we can use Strings, Arrays, Objects, Numbers and many more
 
 // We will use cloud storage, so will use MongoDB Atlas
+
+
+// ********Basic CRUD on MongoDB Atlas*****************
+
+
+// CRUD on GUI in our manual setup
+
+
+// ****************mongoose*************
+
+
+// Once our database is ready to go , we need to connect to it from our server.
+
+// We could use natie mongoDB driver. But a very popular package by the name "mongoose" is used instead.
+
+// mongoose is a object data modelling library.
+
+// It is popular because, out of the box, it comes with a lot of stuffs, that make development much faster. It has extremely straight forward API and it basically does all the heavy lifting for us.
+
+
+// ********Start using the database***************
+
+// Start using the database in our server.
+
+// First thing we need to do is to setup a connection.
+
+// A basic setup -> we are going to import mongoose -> we are going to do that in connect.js in the db folder.
+
+// mongoose.connect(mongodb+srv://JochemReinoud:<type in the password>@nodeexpress.waqrg6h.mongodb.net/<type in the project name>?retryWrites=true&w=majority)
+
+// this will return a promise
+
+// mongoose
+// .connect(mongodb+srv://JochemReinoud:<type in the password>@nodeexpress.waqrg6h.mongodb.net/<type in the project name>?retryWrites=true&w=majority)
+// .then(() => console.log(`CONNECTED TO THE DB...`))
+// .catch((err) => console.log(err))
