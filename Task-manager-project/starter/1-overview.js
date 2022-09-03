@@ -102,11 +102,117 @@
 
 // A basic setup -> we are going to import mongoose -> we are going to do that in connect.js in the db folder.
 
-// mongoose.connect(mongodb+srv://JochemReinoud:<type in the password>@nodeexpress.waqrg6h.mongodb.net/<type in the project name>?retryWrites=true&w=majority)
+// mongoose.connect(connectionString<.env file>)
 
 // this will return a promise
 
 // mongoose
-// .connect(mongodb+srv://JochemReinoud:<type in the password>@nodeexpress.waqrg6h.mongodb.net/<type in the project name>?retryWrites=true&w=majority)
+// .connect(connectionString<.env file>)
 // .then(() => console.log(`CONNECTED TO THE DB...`))
 // .catch((err) => console.log(err))
+
+// After doing the next , we will have successfully connected to the database. 
+
+// But there is a problem -> Our server and database connection do not work in sync -> meaning: take a look at the console -->> 
+
+// Server is listening on port 3000...
+
+// CONNECTED TO THE DB...
+
+// What is the use for our server, if we are not connected to the database -> meaning: first we need to connect to the database, and only if we are successful in doing so, only then do we spin up our server.
+
+// In order to do so, we will need to refactor the code in connect.js , app.js and also create a .env file -> .env file will store and hide our connection string
+
+// In connect.js -> we have to setup the mongoose.connect as a function and return it from inside the function -> we call the function connectDB -> export the function from connect.js
+
+// Next we will invoke it , from the app.js -> import connectDB from connect.js to app.js
+
+// In app.js -> we will write one more function start. Inside this function we will invoke the connectDB -> only if we are successful in invoking connectDB, only then we will spin up our server.
+
+// since , connectDB will return a promise, the start function will have to be async, so that we can use await.
+
+// In async function, we should use try catch block -> to handle error -> in the try block we will invoke connectDB(process.env.MONGO_URI) and then spin up the server.
+
+
+// ********DOCUMENTS-SCHEMA****************
+
+// setup the structure for future documents and assign them to the collection
+
+// We are going to do that using Schema and Model from mongoose
+
+// create folder > models > create file task.js
+
+// const varNameSchema = new mongoose.Schema({}) -> using schema we will setup the structure for all the documents that we will have in our collection
+
+// The syntax is we will use key value pairs and eventually we will set them equal to objects and we will pass in more options
+
+// But to start with something quick, here we will set up the key and their types -> bare minimum for this thing to work
+
+// ***model***
+
+// Once we have the Schema(structure for the data) -> now we want to setup that model -> Model is a representation for the Collection
+
+// In mongoose, the model is a wrapper for the schema
+
+// If the schema defines the structure for the document like the type , validations etc . A mongoose model provides an interface to the database, so by using the model we will able to CREATE, UPDATE, QUERY and DELETE our Documents with great ease. Since, the API is extremely straight forward
+
+// mongoose.model("<name>", <pass in the schema>)
+
+// Next thing we need to do is to go to the controllers and start using the model
+
+// ***************************************************
+
+// Navigate back to Mongoose DOCS -> Models -> An instance of a model is called a document
+
+// The first argument is the singular name of the collection our model is for. Mongoose automatically looks for the plural , lowercased version of our model name.
+
+// few ways we can create an instance of a model(document) ->
+
+// we can use .create with callback function approach but we can also use await
+
+// what .create is looking for? It is looking for the object with those properties -> in our case we have: name and completed -> we can pass this manually.
+
+// But it will make more sense if we just go to createTask route (see Tasks controllers), in there we can access the Task data, in the req.body -> why don't we just pipe it through and pass it along to our model create method
+
+// We will grab the body (in our case, it will be coming from postman) and instead of sending it back, we will pass it to task.create
+
+// Since we are going to be using await on task.create -> so, createTask function will be async  -> so, the controller will be async
+
+// *********Validation**************
+
+// We only accept the properties that are specified in the schema, our current setup up until now has a major flaw -> there is no validation
+
+// As of now, we can pass in empty values -> with this our database can get filled with bunch of empty items.
+
+// we can setup our properties as objects, and we can then setup built in validators
+
+// to learn more about validation -> mongoose docs -> Validation
+
+// ****************ERROR HANDLING**************
+
+// have to use try catch block when we are using async await
+
+// ***************GET DELETE***************
+
+// visit mongoose docs -> Queries
+
+
+// ****************UPDATE/PATCH*****************
+
+// The update controller
+
+// There is going to be a bit more functionality
+
+// In this case, > we are looking for the id > also need the body (since we will be updating something) > we also need to pass in some options, since by default, we won't get the validators working right away. > and also we won't get the item , we just updated.
+
+// *************BETTER APP*******************
+
+// With this all the core functionality is in place, the app works -> both the front end and the back end.
+
+// But we need to improve our code.
+
+// ***patch vs. put***
+
+// When we are using PUT, we replacing the existing resource. We will just pass in the properties we want to set up in an item and the rest of them effectively will be removed.
+
+// PATCH is for partial update. We are just updating the properties we are passing in and the rest of the properties will remain as it is.
