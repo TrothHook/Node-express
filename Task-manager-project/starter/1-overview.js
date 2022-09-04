@@ -216,3 +216,63 @@
 // When we are using PUT, we replacing the existing resource. We will just pass in the properties we want to set up in an item and the rest of them effectively will be removed.
 
 // PATCH is for partial update. We are just updating the properties we are passing in and the rest of the properties will remain as it is.
+
+// ********************************************
+
+// We need to beware of our options. Why don't most prefer not to setup the statuses and successes or data in the .json({}) , that is mostly becuase of the frontend.
+
+// When we use frontend, there are two things that are going on -> when we have asynchronous responses, we already have try catch blocks that is why status or success is bit reduntant.
+
+// Because just as it is with delete, if we are successful, then the try block frontend code will run regardless and if there is an error, the catch block frontend code will run regardless.
+
+// On frontend, usually axios is used, axios right away returns a data property, so, it right away has the data object.
+
+// We can setup our own API responses however we like, BUT, if we want the frontend app, the one that is sitting in the public to work properly, the responses will have to be exactly the same as res.status(200).json({tasks}); because that is what the app is expecting.
+
+//**************ROUTE NOT FOUND******************
+
+// Setup a custom 404 response -> Handle routes that don't exist in our app.
+
+// **********Asynchronours wrappers for controllers**********
+
+// Setup asynchronous wrappers for all our controllers, why? Becuase we have asynchronous operations, and it is very useful to use these try catch blocks, BUT , it becomes somewhat reduntant -> for every controller setting up try and then catch and essentially we are just copy and pasting the code around. So, there has to be a better solution -> We have to create a middleware functions that esssentially will wrap our controllers and in there we will just setup the functionality where we don't have to repeat ourselves.
+
+// There are some npm packages that do that for us, later on, we will be using them instead. But, in the first project, we will build it from scratch by ourselves.
+
+// We will pass in the current controller as an argument. We are taking the asyncWrapper and wrapping the current controller inside it and passing it as an argument.
+
+// We are trying to avoid try catch in the controller. Where we can still use this nice  syntax, but we don't have to setup these try catch blocks.
+
+// How do we do it? We will have to setup the try catch block inside of the wrapper. Since we wrapped the controller in the middleware -> and if we pay close attention, we are actually invoking the asyncWrapper function right away. Now ofcourse we are going to pass in those req, res and next down to the controller actually.
+
+// (in the middleware) -> The way we will do it is we will return another function since we will use await inside of the function body, we will set this function up as async. One thing to keep in mind, (req, res, next) will have access to right away since we are returning another function from async wrapper. and then inside of the function body we will pass these (req, res , next) from express down to this function.
+
+// we are awaiting to find all the tasks and if we are successful we send back those tasks to the async.js.
+
+// And as far as the asyncWrapper, we take the controller as an argument. And since we return the function, we have access to req , res and next that are coming from the express and we setup the try catch block
+
+// In our controller, we still have await, since it is still async. Async functions always return promise. So, in the asyncWrapper, we also have await -> waiting for the promise to be settled (either resolved or rejected).
+
+// And since our controller will still need access to req, res, and possibly next. Since, we get them from express, we pass it down to our controller
+
+// And if in our controllers, there is an error, then we will catch it in the catch block in asyncWrapper and we will pass it to a next set of middleware(which we haven't setup yet)
+
+// This is the long way. Now we will setup the middleware that will actually handle it.
+
+// Next we will work on catching the errors in a new middleware.
+
+// The default error handler
+// Express comes with a built-in error handler that takes care of any errors that might be encountered in the app. This default error-handling middleware function is added at the end of the middleware function stack.
+
+// If you pass an error to next() and you do not handle it in a custom error handler, it will be handled by the built-in error handler.
+
+// Writing error handlers
+// Define error-handling middleware functions in the same way as other middleware functions, except error-handling functions have four arguments instead of three: (err, req, res, next).
+
+// ****404 Error handling********
+
+// We will setup a custom error class, which will extend from general javascript error class, that way we can handle all our 404 responses
+
+// A constructor method is a special method we invoke when we create a new instance of a class. In our case, we will pass in 2 arguments -> an Error message and a status Code
+
+// And then, since we extending, basically we are setting up a child class, so , we need to use super method, which will invoke a constructor of a Parent class
