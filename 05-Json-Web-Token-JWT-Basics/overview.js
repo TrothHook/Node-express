@@ -50,4 +50,48 @@
 
 // JWT is just a way to exchange data between two parities -> EG: between a front-end app and our api
 
-// Why is using JWT is far better than using some random string, it is because JWT has a security feature where we can be sure about the integrity of our data.
+// Why is using JWT is far better than using some random string, it is because JWT has a security feature where we can be sure about the integrity of our data. -> If the token passes the validation, it means that it is the same token we have sent to the client. And the data wasn't tampererd with .
+
+// Front-end also need to store the token. When and where? later
+
+// HTTP**********************
+
+// One of the feature of HTTP is that it is stateless -> it means that the server does not know, or remember any previous requests sent by the same client.
+
+// So, even after the first second or the 200th successful request, the front end will still need to provide the valid token, otherwise the access will be denied.
+
+// visit jwt.io
+
+// jwt structure -> header, payload and signature
+
+// header has 2 parts -> 1) the type of token -> in our case it will be JWT. 2) the algorithm that is used to create the signature. Then this one gets encoded with Base64Url
+
+// payload -> this is where we will place the information. Eg. Here we can place the id of the user that just signed in/logged in/registered . Then we send back the entire token along with the payload back to the front-end . then the front-end sends it back to us. When we decode, we get that id. ==> what it means is that if the user has some kind of resource -> we access right away resources that belong to only that user . this also gets encoded with Base64Url
+
+// Signature -> this is where the alogrith is used. the one that is specified in the header and then we add here the secret to sign our token. And as far as the secret, we have to keep this on our server.
+
+// We will use jsonwebtoken npm package to sign and decode
+
+// Next we need to understand, how the request with the token already present is going to look like.(since this is backend course, we are not going dwelve too much into the dos and don'ts on proper JWT storage on the front-end. There are best practices and they are important, but our current goal is to secure resource access on the server. So, we are only insterested in how the request is going to look like, so, we can implement the correct functionality on our end.) 
+
+// A common approach on the front-end is to setup the authorization header in the request using the Bearer Schema
+
+// We have header by the name of Authorization then we go with Bearer then the <token>
+
+// the moment we submit a valid username and password -> we will get back the token in the Local Storage. So, we have the token, and when we are making the next request -> we just grab the data from the local storage. Check the network tab > request headers
+
+// At this point, the functionality is done. Now we need to make this project better. we will write a middleware function auth.js
+
+// In a realistic application, there will be multiple routes that is going to use the functionality under dashboard route
+
+// authenticationMiddleware function -> in later projects we are going to use this middleare function in many different routes
+
+// Now auth middleware is done. since we have written next(); we can place this middleware infront of any number of controller route functions, it will work.
+
+// Next we have to handle the errors in a better way
+
+// So, far we have been using only one class CustomAPIError which extends from the Error class to handle the erros -> 400, 401. The error 500 is already handled properly. 
+
+//  So, what we will do to handle 400 and 401 is to write 2 more classes which will extend from CustomAPIError class
+
+// Instead of hardcoding status codes, there is better approach. We will use http-status-code package
